@@ -181,24 +181,36 @@ Procedure Fileopen;
 VAR     fn,kom : string;
         
 begin
-   fn := '';
-   write('Filename '); Readln(fn);
-   if fn = ''then fn := 'test.txt' ;
-   write('Kommentar '); Readln(kom);
+	try
+		fn := '';
+		write('Filename '); Readln(fn);
+		if fn = ''then fn := 'test.txt' ;
+		write('Kommentar '); Readln(kom);
 
-   assign(f,fn);
-   rewrite(f);
-   write(f,'# ');
-   writetime(f);
-   writeln(f,'# ',fn);
-   Writeln(f,'# ',kom);
-   if fn <> 't' then begin
-    assign(fkom,'log_kom.txt');  { extra log file }
-    append(fkom);
-    writeln(fkom,fn,' ',kom);
-    writetime(fkom);
-    close(fkom);
-   end;
+		assign(f,fn);
+		rewrite(f);
+		write(f,'# ');
+		writetime(f);
+		writeln(f,'# ',fn);
+		Writeln(f,'# ',kom);
+		if fn <> 't' then begin
+			assign(fkom,'log_kom.txt');  { extra log file }
+			If FileExists('log_kom.txt') Then
+				append(fkom)
+			Else Begin
+				rewrite(fkom);
+			End;
+			writeln(fkom,fn,' ',kom);
+			writetime(fkom);
+			close(fkom);
+		end;
+	except on E: Exception do
+		begin
+			Writeln('Error: ' + E.ClassName + #13#10 + E.Message);
+			writeln('Press any key to exit');
+			ReadKey;
+		end;
+	end;
 end;   
 
 
@@ -417,6 +429,8 @@ begin               { main program  }
       ser.free;
       Writeln('SerialPort was freed!');
       writeStatus;
+      writeln('Press any key to exit');
+      ReadKey;
   end;
 
 end.
