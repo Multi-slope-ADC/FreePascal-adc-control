@@ -1,9 +1,15 @@
 # ADC control program (free pascal)<br>
-[Copy from eevblog forum: DIY high resolution multi-slope converter (with permissiom from Ulrich Harms)](https://www.eevblog.com/forum/metrology/diy-high-resolution-multi-slope-converter/msg3616117/#msg3616117)<br>
+From eevblog forum: [DIY high resolution multi-slope converter](https://www.eevblog.com/forum/metrology/diy-high-resolution-multi-slope-converter/msg3616117/#msg3616117) (with permission of Ulrich Harms)<br>
+<br>
+Changelog:<br>
+Catch exceptions<br>
+<br>
+[Original copy in branch: Kleinstein_2021-07-28](https://github.com/Multi-slope-ADC/FreePascal-adc-control/tree/Kleinstein_2021-07-28)<br>
 <br>
 Free pascal: https://www.freepascal.org/download.html<br>
 Synapse TCP/IP and serial library (Synaser): http://synapse.ararat.cz/doku.php/download<br>
-
+<br>
+## Manual<br>
 Commands are sent as 1 byte ASCII:<br>
 <br>
 0..7 Selection of MUX channel for measurement (Input1..8 on U7 DG408)<br>
@@ -33,13 +39,13 @@ F..M functions:<br>
 <br>
 P..W run-up versions:<br>
 &nbsp;P -> fast 35+3*x/8/8<br>
-&nbsp;Q -> normal case 78+6*x/12/12<br>
-&nbsp;R -> short fix 86+6*x/8/8<br>
+&nbsp;Q -> normal case 78+6\*x/12/12<br>
+&nbsp;R -> short fix 86+6\*x/8/8<br>
 &nbsp;S -> 4 step mode<br>
 &nbsp;T -> dummy 4 step mode (integrator MUX U5 4053 always off)<br>
 &nbsp;U -> 4 step with 0<br>
-&nbsp;V -> long fix 66+6*x/18/18<br>
-&nbsp;W -> slow 168+12*x/18/18<br>
+&nbsp;V -> long fix 66+6\*x/18/18<br>
+&nbsp;W -> slow 168+12\*x/18/18<br>
 <br>
 X -> exit control program (no changes in adc)<br>
 <br>
